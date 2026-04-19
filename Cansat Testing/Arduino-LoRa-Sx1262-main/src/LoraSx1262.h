@@ -39,7 +39,7 @@
 //Pin configurations (for Arduino UNO)
 #define SX1262_NSS   17
 #define SX1262_RESET -1
-#define SX1262_DIO1  -1
+#define SX1262_DIO1  4
 
 //Presets. These help make radio config easier
 #define PRESET_DEFAULT    0

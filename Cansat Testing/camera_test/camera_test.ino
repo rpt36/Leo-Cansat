@@ -15,13 +15,8 @@
 #include <WiFi.h>
 #include "time.h"
 
-// REPLACE WITH YOUR NETWORK CREDENTIALS
-const char* ssid = "REPLACE_WITH_YOUR_SSID";
-const char* password = "REPLACE_WITH_YOUR_PASSWORD";
-int picture_number = 1;
 
-// REPLACE WITH YOUR TIMEZONE STRING: https://github.com/nayarsystems/posix_tz_db/blob/master/zones.csv
-String myTimezone ="WET0WEST,M3.5.0/1,M10.5.0";
+int picture_number = 1;
 
 // Pin definition for CAMERA_MODEL_AI_THINKER
 // Change pin definition if you're using another ESP32 camera module
@@ -72,11 +67,11 @@ void configInitCamera(){
   // Select lower framesize if the camera doesn't support PSRAM
   if(psramFound()){
     config.frame_size = FRAMESIZE_UXGA; // FRAMESIZE_ + QVGA|CIF|VGA|SVGA|XGA|SXGA|UXGA
-    config.jpeg_quality = 10; //0-63 lower number means higher quality
+    config.jpeg_quality = 2; //0-63 lower number means higher quality
     config.fb_count = 1;
   } else {
     config.frame_size = FRAMESIZE_SVGA;
-    config.jpeg_quality = 12;
+    config.jpeg_quality = 2;
     config.fb_count = 1;
   }
   
@@ -87,39 +82,7 @@ void configInitCamera(){
     return;
   }
 }
-/*
-// Connect to wifi
-void  initWiFi(){
-  WiFi.begin(ssid, password);
-  Serial.println("Connecting Wifi");
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print(".");
-    delay(500);
-  }
-}
 
-
-// Function to set timezone
-void setTimezone(String timezone){
-  Serial.printf("  Setting Timezone to %s\n",timezone.c_str());
-  setenv("TZ",timezone.c_str(),1);  //  Now adjust the TZ.  Clock settings are adjusted to show the new local time
-  tzset();
-}
-
-// Connect to NTP server and adjust timezone
-void initTime(String timezone){
-  struct tm timeinfo;
-  Serial.println("Setting up time");
-  configTime(0, 0, "pool.ntp.org");    // First connect to NTP server, with 0 TZ offset
-  if(!getLocalTime(&timeinfo)){
-    Serial.println(" Failed to obtain time");
-    return;
-  }
-  Serial.println("Got the time from NTP");
-  // Now we can set the real timezone
-  setTimezone(timezone);
-}
-*/
 // Get the picture filename based on the current ime
 String getPictureFilename(){
   picture_number = picture_number + 1;
@@ -198,5 +161,5 @@ void setup() {
 void loop() {    
   // Take and Save Photo
   takeSavePhoto();
-  delay(10000);
+  delay(1000);
 }
